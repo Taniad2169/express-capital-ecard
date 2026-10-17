@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0b1c35">
+<meta name="description" content="Franz Lambert III, Owner of Express Capital Associates. Alternative business funding nationwide.">
+<meta property="og:title" content="Franz Lambert III | Express Capital Associates">
+<meta property="og:description" content="Digital business card. Call, connect on Instagram and LinkedIn, and visit expresscapitalassociate.com.">
+<title>Franz Lambert III E-Card</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+  /* Layout: one flip card centered on a navy field. Front = identity + contact, back = three scan codes. Brand: Express Capital navy + gold. Single deliberate look. */
+  :root {
+    color-scheme: dark;
+    --navy: #0b1c35;
+    --navy-2: #0d2040;
+    --navy-3: #13305a;
+    --gold: #c8a44a;
+    --gold-2: #e8c97a;
+    --paper: #f7f5f0;
+    --ink: #0b1c35;
+    --muted: #5a6478;
+    --line: #ddd8ce;
+    --white: #ffffff;
+    --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+    --font-body: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: radial-gradient(120% 80% at 50% 0%, var(--navy-3) 0%, var(--navy) 55%, #071226 100%) fixed, var(--navy);
+    color: var(--paper);
+    font-family: var(--font-body);
+    min-height: 100vh;
+    margin: 0;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 14px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    -webkit-font-smoothing: antialiased;
+  }
+  button, a { font-family: inherit; }
+  :focus-visible { outline: 2px solid var(--gold-2); outline-offset: 2px; }
+
+  .bar {
+    width: 100%; max-width: 440px;
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  }
+  .bar-label { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-2); font-weight: 600; }
+  .bar-actions { display: flex; gap: 6px; }
+  .chip {
+    border: 1px solid rgba(232,201,122,.45); background: rgba(255,255,255,.06); color: var(--paper);
+    font-size: 12px; font-weight: 600; padding: 7px 12px; border-radius: 999px; cursor: pointer;
+  }
+  .chip:hover { background: rgba(232,201,122,.16); }
+
+  .stage { width: 100%; max-width: 440px; perspective: 1400px; }
+  .flip { display: grid; transform-style: preserve-3d; transition: transform .7s cubic-bezier(.4,.2,.2,1); }
+  .flip.flipped { transform: rotateY(180deg); }
+  .face { grid-area: 1 / 1; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: 22px; overflow: hidden; }
+  .back { transform: rotateY(180deg); }
+  @media (prefers-reduced-motion: reduce) { .flip { transition: none; } }
+
+  /* FRONT */
+  .front { background: var(--paper); color: var(--ink); box-shadow: 0 30px 60px -20px rgba(0,0,0,.6), 0 0 0 1px rgba(200,164,74,.5); display: flex; flex-direction: column; }
+  .crest {
+    background: linear-gradient(160deg, var(--navy-2) 0%, var(--navy) 100%);
+    padding: 26px 22px 22px; text-align: center; position: relative; color: var(--paper);
+    border-bottom: 3px solid var(--gold);
+  }
+  .crest::after { content: ""; position: absolute; left: 0; right: 0; bottom: -9px; height: 3px; background: var(--gold-2); opacity: .35; }
+  .mark { width: 74px; height: 74px; margin: 0 auto 10px; display: block; }
+  .co-name { font-family: var(--font-display); font-weight: 600; font-size: 25px; letter-spacing: .14em; text-transform: uppercase; line-height: 1.1; text-wrap: balance; margin: 0; }
+  .tagline { margin-top: 8px; font-size: 10.5px; letter-spacing: .26em; text-transform: uppercase; color: var(--gold-2); }
+
+  .who { padding: 22px 22px 6px; text-align: center; }
+  .who h1 { font-family: var(--font-display); font-weight: 700; font-size: 34px; line-height: 1; margin: 0; color: var(--ink); }
+  .role { margin-top: 6px; font-size: 12px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); }
+  .blurb { margin: 8px auto 0; max-width: 32ch; font-size: 13px; line-height: 1.5; color: var(--muted); }
+
+  .website {
+    margin: 16px 22px 0; display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding: 14px 16px; border-radius: 14px; text-decoration: none;
+    background: var(--navy); color: var(--paper); border: 1px solid var(--gold);
+  }
+  .website:hover { background: var(--navy-3); }
+  .website small { display: block; font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-2); font-weight: 600; }
+  .website strong { display: block; font-size: 15px; font-weight: 600; margin-top: 2px; word-break: break-all; }
+  .website svg { flex: none; color: var(--gold-2); }
+
+  .actions { margin: 12px 22px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .btn {
+    display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 10px; border-radius: 12px;
+    font-size: 14px; font-weight: 700; text-decoration: none; cursor: pointer; border: 0;
+  }
+  .btn-gold { background: linear-gradient(180deg, var(--gold-2), var(--gold)); color: var(--navy); }
+  .btn-line { background: var(--white); color: var(--navy); border: 1.5px solid var(--gold); }
+
+  .social { margin: 10px 22px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .social a {
+    display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px; border-radius: 12px;
+    background: var(--white); border: 1px solid var(--line); color: var(--ink); text-decoration: none; font-size: 13px; font-weight: 600;
+  }
+  .social a:hover { border-color: var(--gold); }
+
+  .rows { margin: 14px 22px 0; display: grid; gap: 8px; }
+  .row {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding: 10px 12px; border-radius: 12px; background: var(--white); border: 1px solid var(--line);
+  }
+  .row-main { display: flex; align-items: center; gap: 10px; min-width: 0; }
+  .ico { width: 34px; height: 34px; flex: none; border-radius: 10px; background: rgba(200,164,74,.14); color: var(--gold); display: grid; place-items: center; }
+  .row-text { min-width: 0; }
+  .row-text small { display: block; font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+  .row-text span { display: block; font-size: 14px; font-weight: 600; color: var(--ink); overflow-wrap: anywhere; user-select: text; font-variant-numeric: tabular-nums; }
+  .copy { flex: none; background: none; border: 0; padding: 8px; border-radius: 10px; color: var(--muted); cursor: pointer; }
+  .copy:hover { color: var(--gold); background: rgba(200,164,74,.1); }
+
+  .services { margin: 14px 22px 0; display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+  .services span { font-size: 11px; font-weight: 600; padding: 5px 9px; border-radius: 999px; background: rgba(11,28,53,.06); color: var(--navy); }
+
+  .foot { margin: 16px 22px 20px; padding-top: 14px; border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr auto; gap: 10px; }
+  .btn-dark { background: var(--navy); color: var(--paper); }
+  .btn-dark svg { color: var(--gold-2); }
+  .btn-soft { background: rgba(200,164,74,.16); color: var(--navy); padding-inline: 16px; }
+
+  /* BACK */
+  .back { background: var(--navy-2); box-shadow: 0 30px 60px -20px rgba(0,0,0,.6), 0 0 0 1px rgba(200,164,74,.5); padding: 18px; display: flex; flex-direction: column; gap: 12px; }
+  .back-head { text-align: center; padding: 4px 0 2px; }
+  .back-head h2 { font-family: var(--font-display); font-weight: 600; font-size: 24px; margin: 0; color: var(--paper); letter-spacing: .04em; }
+  .back-head p { margin: 4px 0 0; font-size: 12px; color: var(--gold-2); letter-spacing: .12em; text-transform: uppercase; }
+  .qr-card { background: var(--paper); border-radius: 16px; padding: 14px; display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: center; border: 1px solid var(--gold); }
+  .qr-box { background: var(--white); padding: 8px; line-height: 0; border-radius: 8px; }
+  .qr-box img, .qr-box canvas { width: 128px !important; height: 128px !important; }
+  .qr-info { min-width: 0; color: var(--ink); }
+  .qr-info small { display: block; font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); }
+  .qr-info h3 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-height: 1.05; margin: 3px 0 4px; }
+  .qr-info span { display: block; font-size: 12.5px; color: var(--muted); overflow-wrap: anywhere; }
+  @media (max-width: 360px) {
+    .qr-card { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+  }
+
+  .credit { font-size: 11px; color: rgba(247,245,240,.6); text-align: center; letter-spacing: .04em; }
+  .credit b { color: var(--gold-2); font-weight: 600; }
+
+  .toast {
+    position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 30px); opacity: 0;
+    background: var(--navy); color: var(--paper); border: 1px solid var(--gold); padding: 10px 16px; border-radius: 12px;
+    font-size: 13px; font-weight: 600; transition: all .3s; pointer-events: none; z-index: 20; max-width: calc(100% - 32px);
+  }
+  .toast.show { transform: translate(-50%, 0); opacity: 1; }
+</style>
+
+</head>
+<body>
+<header class="bar">
+  <span class="bar-label">Digital Business Card</span>
+  <div class="bar-actions">
+    <button class="chip" type="button" id="share-btn">Copy Link</button>
+    <button class="chip" type="button" id="flip-top">Flip to QR</button>
+  </div>
+</header>
+
+<main class="stage">
+  <div class="flip" id="card">
+
+    <!-- FRONT -->
+    <section class="face front" aria-label="Front of card">
+      <div class="crest">
+        <svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
+          <circle cx="50" cy="50" r="46" fill="none" stroke="#c8a44a" stroke-width="2.5"/>
+          <circle cx="50" cy="50" r="40" fill="none" stroke="#e8c97a" stroke-width="1" opacity=".5"/>
+          <path d="M14 52 C 28 40, 40 38, 50 46 C 60 38, 72 40, 86 52 C 74 47, 64 48, 56 54 L 50 70 L 44 54 C 36 48, 26 47, 14 52 Z" fill="#c8a44a"/>
+          <path d="M22 44 C 32 36, 42 35, 50 41 C 58 35, 68 36, 78 44" fill="none" stroke="#e8c97a" stroke-width="2" stroke-linecap="round"/>
+          <path d="M30 37 C 37 32, 44 31, 50 35 C 56 31, 63 32, 70 37" fill="none" stroke="#e8c97a" stroke-width="1.6" stroke-linecap="round" opacity=".8"/>
+          <circle cx="50" cy="46" r="3.2" fill="#e8c97a"/>
+        </svg>
+        <p class="co-name">Express Capital<br>Associates</p>
+        <div class="tagline">Soaring Above The Competition</div>
+      </div>
+
+      <div class="who">
+        <h1>Franz Lambert III</h1>
+        <div class="role">Owner</div>
+        <p class="blurb">Alternative business funding nationwide. Capital when banks say no, funded in as little as 24 hours.</p>
+      </div>
+
+      <a class="website" href="https://expresscapitalassociate.com/" target="_blank" rel="noopener noreferrer">
+        <span>
+          <small>Official Website</small>
+          <strong>expresscapitalassociate.com</strong>
+        </span>
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+      </a>
+
+      <div class="actions">
+        <a class="btn btn-gold" href="tel:+19293468635">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+          Call Franz
+        </a>
+        <a class="btn btn-line" href="sms:+19293468635">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+          Send Text
+        </a>
+      </div>
+
+      <nav class="social" aria-label="Social profiles">
+        <a href="https://www.instagram.com/flambert2/" target="_blank" rel="noopener noreferrer">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+          Instagram
+        </a>
+        <a href="https://www.linkedin.com/in/franz-lambert-ii-b7872618/" target="_blank" rel="noopener noreferrer">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05C20.6 8.65 21 11.2 21 14.5V21h-4v-5.7c0-1.36-.03-3.1-1.9-3.1-1.9 0-2.2 1.48-2.2 3v5.8H9z"/></svg>
+          LinkedIn
+        </a>
+      </nav>
+
+      <div class="rows">
+        <div class="row">
+          <div class="row-main">
+            <div class="ico"><svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z"/></svg></div>
+            <div class="row-text"><small>Mobile</small><span>(929) 346-8635</span></div>
+          </div>
+          <button class="copy" type="button" data-copy="9293468635" data-msg="Mobile number copied" aria-label="Copy mobile number">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+          </button>
+        </div>
+        <div class="row">
+          <div class="row-main">
+            <div class="ico"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg></div>
+            <div class="row-text"><small>Office</small><span>(646) 698-8600</span></div>
+          </div>
+          <button class="copy" type="button" data-copy="6466988600" data-msg="Office number copied" aria-label="Copy office number">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+          </button>
+        </div>
+        <div class="row">
+          <div class="row-main">
+            <div class="ico"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></div>
+            <div class="row-text"><small>Email</small><span>franz@expresscapitalassociate.com</span></div>
+          </div>
+          <button class="copy" type="button" data-copy="franz@expresscapitalassociate.com" data-msg="Email copied" aria-label="Copy email">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="services" aria-label="Funding programs">
+        <span>Merchant Cash Advance</span><span>Business Line of Credit</span><span>Invoice Factoring</span>
+        <span>SBA Funding</span><span>Equipment Financing</span><span>Asset-Backed Funding</span>
+      </div>
+
+      <div class="foot">
+        <button class="btn btn-dark" type="button" id="save-contact">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
+          Save Contact
+        </button>
+        <button class="btn btn-soft" type="button" id="flip-front">QR Codes</button>
+      </div>
+    </section>
+
+    <!-- BACK -->
+    <section class="face back" aria-label="Back of card with QR codes">
+      <div class="back-head">
+        <h2>Franz Lambert III</h2>
+        <p>Point your camera to scan</p>
+      </div>
+
+      <div class="qr-card">
+        <div class="qr-box" data-qr="tel:+19293468635" role="img" aria-label="QR code to call Franz at 929-346-8635"></div>
+        <div class="qr-info"><small>Phone</small><h3>Scan to Call Franz</h3><span>(929) 346-8635</span></div>
+      </div>
+
+      <div class="qr-card">
+        <div class="qr-box" data-qr="https://www.instagram.com/flambert2/" role="img" aria-label="QR code for Franz's Instagram"></div>
+        <div class="qr-info"><small>Instagram</small><h3>Connect on Instagram</h3><span>@flambert2</span></div>
+      </div>
+
+      <div class="qr-card">
+        <div class="qr-box" data-qr="https://www.linkedin.com/in/franz-lambert-ii-b7872618/" role="img" aria-label="QR code for Franz's LinkedIn"></div>
+        <div class="qr-info"><small>LinkedIn</small><h3>Connect on LinkedIn</h3><span>Franz Lambert</span></div>
+      </div>
+
+      <button class="btn btn-gold" type="button" id="flip-back">&larr; Back to Card</button>
+    </section>
+  </div>
+</main>
+
+<p class="credit">Express Capital Associates &bull; Miami, FL &bull; Card by <b>The WebSwan</b></p>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+  var flipped = false;
+  function flip() {
+    flipped = !flipped;
+    document.getElementById('card').classList.toggle('flipped', flipped);
+    document.getElementById('flip-top').textContent = flipped ? 'Show Front' : 'Flip to QR';
+  }
+  ['flip-top', 'flip-front', 'flip-back'].forEach(function (id) {
+    document.getElementById(id).addEventListener('click', flip);
+  });
+
+  var toastTimer;
+  function toast(msg) {
+    var t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { t.classList.remove('show'); }, 2600);
+  }
+
+  function copyText(text, msg) {
+    function fallback() {
+      try {
+        var ta = document.createElement('textarea');
+        ta.value = text; ta.style.position = 'fixed'; ta.style.left = '-9999px';
+        document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+        toast(msg);
+      } catch (e) { toast(text); }
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { toast(msg); }, fallback);
+    } else { fallback(); }
+  }
+  document.querySelectorAll('[data-copy]').forEach(function (b) {
+    b.addEventListener('click', function () { copyText(b.getAttribute('data-copy'), b.getAttribute('data-msg')); });
+  });
+  document.getElementById('share-btn').addEventListener('click', function () {
+    copyText(location.href, 'Card link copied. Paste it in a text or email.');
+  });
+
+  document.getElementById('save-contact').addEventListener('click', function () {
+    var vcf = [
+      'BEGIN:VCARD', 'VERSION:3.0',
+      'N:Lambert;Franz;;;III', 'FN:Franz Lambert III',
+      'ORG:Express Capital Associates', 'TITLE:Owner',
+      'TEL;TYPE=CELL,VOICE:+19293468635', 'TEL;TYPE=WORK,VOICE:+16466988600',
+      'EMAIL;TYPE=WORK:franz@expresscapitalassociate.com',
+      'URL;TYPE=WORK:https://expresscapitalassociate.com/',
+      'URL;TYPE=Instagram:https://www.instagram.com/flambert2/',
+      'URL;TYPE=LinkedIn:https://www.linkedin.com/in/franz-lambert-ii-b7872618/',
+      'ADR;TYPE=WORK:;;SW 149th Place;Miami;FL;33187;USA',
+      'END:VCARD'
+    ].join('\r\n');
+    try {
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([vcf], { type: 'text/vcard;charset=utf-8' }));
+      a.download = 'Franz_Lambert_III.vcf';
+      document.body.appendChild(a); a.click(); a.remove();
+      toast('Contact file downloading');
+    } catch (e) { toast('Contact save is not available here'); }
+  });
+
+  function renderQRs() {
+    if (typeof QRCode === 'undefined') { return; }
+    document.querySelectorAll('.qr-box').forEach(function (box) {
+      box.innerHTML = '';
+      new QRCode(box, {
+        text: box.getAttribute('data-qr'),
+        width: 256, height: 256,
+        colorDark: '#0b1c35', colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.M
+      });
+    });
+  }
+  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', renderQRs); } else { renderQRs(); }
+</script>
+</body>
+</html>
