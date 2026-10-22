@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0b1c35">
-<meta name="description" content="Franz Lambert III, Owner of Express Capital Associates. Alternative business funding nationwide.">
-<meta property="og:title" content="Franz Lambert III | Express Capital Associates">
+<meta name="description" content="Franz Lambert II, Owner of Express Capital Associates. Alternative business funding nationwide.">
+<meta property="og:title" content="Franz Lambert II | Express Capital Associates">
 <meta property="og:description" content="Digital business card. Call, connect on Instagram and LinkedIn, and visit expresscapitalassociate.com.">
-<title>Franz Lambert III E-Card</title>
+<title>Franz Lambert II E-Card</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -185,7 +185,7 @@
       </div>
 
       <div class="who">
-        <h1>Franz Lambert III</h1>
+        <h1>Franz Lambert II</h1>
         <div class="role">Owner</div>
         <p class="blurb">Alternative business funding nationwide. Capital when banks say no, funded in as little as 24 hours.</p>
       </div>
@@ -267,7 +267,7 @@
     <!-- BACK -->
     <section class="face back" aria-label="Back of card with QR codes">
       <div class="back-head">
-        <h2>Franz Lambert III</h2>
+        <h2>Franz Lambert II</h2>
         <p>Point your camera to scan</p>
       </div>
 
@@ -338,7 +338,7 @@
   document.getElementById('save-contact').addEventListener('click', function () {
     var vcf = [
       'BEGIN:VCARD', 'VERSION:3.0',
-      'N:Lambert;Franz;;;III', 'FN:Franz Lambert III',
+      'N:Lambert;Franz;;;II', 'FN:Franz Lambert II',
       'ORG:Express Capital Associates', 'TITLE:Owner',
       'TEL;TYPE=CELL,VOICE:+19293468635', 'TEL;TYPE=WORK,VOICE:+16466988600',
       'EMAIL;TYPE=WORK:franz@expresscapitalassociate.com',
@@ -351,7 +351,7 @@
     try {
       var a = document.createElement('a');
       a.href = URL.createObjectURL(new Blob([vcf], { type: 'text/vcard;charset=utf-8' }));
-      a.download = 'Franz_Lambert_III.vcf';
+      a.download = 'Franz_Lambert_II.vcf';
       document.body.appendChild(a); a.click(); a.remove();
       toast('Contact file downloading');
     } catch (e) { toast('Contact save is not available here'); }
